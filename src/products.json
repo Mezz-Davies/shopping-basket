@@ -1,0 +1,26 @@
+[
+	{ 
+		"pid" : "3b949094-d90e-48bf-8ff4-49c06b2d1395",
+		"name" : "Peas",
+		"GBP_price" : 0.95,
+		"UnitOfMeasure" : "bag"
+	},
+	{ 
+		"pid" : "6286b9f4-8ce3-431b-8ac5-9f1fef806c2e",
+		"name" : "Eggs",
+		"GBP_price" : 2.10,
+		"UnitOfMeasure" : "dozen"
+	},
+	{ 
+		"pid" : "61a60469-2131-4459-835b-a5313be9a40c",
+		"name" : "Milk",
+		"GBP_price" : 1.30,
+		"UnitOfMeasure" : "bottle"
+	},
+	{ 
+		"pid" : "67e3c562-c09a-4c17-b007-93171c16dc02",
+		"name" : "Beans",
+		"GBP_price" : 0.73,
+		"UnitOfMeasure" : "can"
+	}
+]
