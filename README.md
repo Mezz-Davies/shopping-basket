@@ -4,10 +4,10 @@ Write an application and associated unit tests that can price a basket of goods 
 
 The goods that can be purchased, which are all priced in GBP, are:
 
-• Peas – 95p per bag
-• Eggs – £2.10 per dozen
-• Milk – £1.30 per bottle
-• Beans – 73p per can
+* Peas – 95p per bag
+* Eggs – £2.10 per dozen
+* Milk – £1.30 per bottle
+* Beans – 73p per can
 
 The program should allow the user to add or remove items in a basket. The user can click on a checkout
 button which will then display the total price for the basket with the option to display the amount in different
