@@ -44,8 +44,13 @@ const CardFace = Styled.div`
 		color: white;
 	}
 `
+
+/**
+ * 
+ * @param {Boolean} IsFlipped show front or back face of card
+ * @param {any} children renders first 2 children shown
+ */
 const FlippingCard = ({IsFlipped, children}) => {
-	console.log(IsFlipped);
 	return(
 		<Card>
 			<CardInner>

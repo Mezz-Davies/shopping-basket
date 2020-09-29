@@ -1,18 +1,44 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Styled from 'styled-components';
-import {ButtonContainer, StyledButton} from '../ButtonRow';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {ButtonContainer, StyledButton, StyledHeader} from '../StyledComponents';
 
 const TotalRow = Styled.div`
 	font-size: 2em;
+	margin-bottom: 0.25em;
+`
+const CurrencySelectionRow = Styled.div`
+	font-size: 1.25em;
+	&>select{
+		font-size: 1rem;
+	}
 `
 const BasketBreakdownGrid = Styled.div`
 	display: grid;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: auto auto auto auto auto auto;
+	padding: 0.5rem;
 `
-const CurrencySelectionRow = Styled.div`
+const ItemTitleRow = Styled.div`
+	grid-column: 2/span 4;
+	font-size: 1.5em;
+	border-bottom: 1px solid white;
+`
 
+const CostCell = Styled.div`
+	text-align: right;
 `
-const Checkout = ({Items, Products, ToBasket}) => {
+const UnitOfMeasureCell = Styled.div`
+	text-align: left;
+	margin-left: 0.5rem;
+`
+/**
+ * 
+ * @param {array} Products array of products { pid, name, GBP_price, UnitOfMeasure : { single, plural }}
+ * @param {object} Items key-value pair object of productId : Number in basket
+ * @param {function} ToBasket Callback to change view to Basket
+ */
+const Checkout = ({Products, Items, ToBasket, InitPayment}) => {
 	const [ SelectedCurrency, SetSelectedCurrency ] = useState('GBP');
 
 	const [ IsLoading, SetIsLoading ] = useState(false);
@@ -60,9 +86,12 @@ const Checkout = ({Items, Products, ToBasket}) => {
 				});
 				return(
 					<Fragment key={pid}>
+						<div></div>
 						<div>{ProductName}</div>
-						<div>{IndividualCostString} per {UnitOfMeasure}</div>
+						<CostCell>{IndividualCostString}</CostCell>
+						<UnitOfMeasureCell>per {UnitOfMeasure.single}</UnitOfMeasureCell>
 						<div>{ProductCostString}</div>
+						<div></div>
 					</Fragment>
 				)
 			}
@@ -81,32 +110,49 @@ const Checkout = ({Items, Products, ToBasket}) => {
 			currency : SelectedCurrency
 		});
 
+	const ConveryCurrencyKeyToOptionText = (CurrencyKey) => {
+		const regex = /0./gi;
+		return (0).toLocaleString('en-GB', {
+			style : 'currency',
+			currency : CurrencyKey,
+			currencyDisplay: 'name'
+		}).replace(regex, '').trim();
+	}
+
 	return (
 		<div>
-			<h1>Checkout</h1>
+			<StyledHeader>Checkout</StyledHeader>
 			<div>
 				<TotalRow>Total Cost : {TotalCost}</TotalRow>
 				<CurrencySelectionRow>
-					Select which currency you'd like to use : <select onChange={(e)=>{ console.log(e.currentTarget.value); SetSelectedCurrency(e.currentTarget.value)}} value={SelectedCurrency}>
-						{
-							Object.keys(CurrencyOptions).sort().map(
-								CurrencyKey => <option key={CurrencyKey} value={CurrencyKey}>{CurrencyKey}</option>
-							)
-						}
-					</select>
+					{ IsLoading ?
+						<></>
+						:
+						<>
+							Select which currency you'd like to use : <select onChange={(e)=>SetSelectedCurrency(e.currentTarget.value)} value={SelectedCurrency}>
+							{
+								Object.keys(CurrencyOptions).sort().map(
+									CurrencyKey => <option key={CurrencyKey} value={CurrencyKey}>{ConveryCurrencyKeyToOptionText(CurrencyKey)} ({CurrencyKey})</option>
+								)
+							}
+						</select>
+						</>
+					}
+					
 				</CurrencySelectionRow>
 			</div>
 			{
 				CostRows.length > 0 ?
 					<BasketBreakdownGrid>
+						<div></div><ItemTitleRow>Items in Basket</ItemTitleRow><div></div>
 						{CostRows}
 					</BasketBreakdownGrid>
 					:
 					<div>No Products in Basket</div>
 			}
 			<ButtonContainer>
-				<StyledButton onClick={ToBasket}>To Basket</StyledButton>
-				<StyledButton onClick={ToBasket}>To Basket</StyledButton>
+				<StyledButton onClick={ToBasket}><FontAwesomeIcon icon={faArrowLeft}/> To Basket</StyledButton>
+				<StyledButton onClick={()=>InitPayment(Items, SelectedCurrency)}>Pay Now <FontAwesomeIcon icon={faArrowRight}/></StyledButton>
 			</ButtonContainer>
 		</div>
 	)

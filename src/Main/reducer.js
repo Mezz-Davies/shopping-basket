@@ -12,10 +12,6 @@ export const InitialState = {
 
 export const MainReducer = ( state=InitialState, action ) => {
 	switch( action.type ){
-		case MainConstants.UPDATE_PRODUCTS:
-			return Object.assign({}, state, {
-				Products : action.Products
-			})
 		case MainConstants.UPDATE_BASKET_VALUE:
 			return Object.assign({}, state, 
 				Object.assign( state.BasketItems, {

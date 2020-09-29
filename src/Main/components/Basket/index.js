@@ -1,24 +1,31 @@
 import React from 'react';
 import Styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 import ProductRow from './ProductRow';
-import {ButtonContainer, StyledButton} from '../ButtonRow';
+import {ButtonContainer, StyledButton, StyledHeader} from '../StyledComponents';
 
-const BasketContainer = Styled.div`
-	
-`
 const ProductContainer = Styled.div`
 	display: grid;
-	grid-template-columns: 250px 50px 50px 50px;
+	grid-template-columns: auto auto 50px auto 50px;
 	margin: auto;
 	row-gap: 1em;
+	column-gap: 0.5em;
 	font-size: 1.5em;
 `
 
+/**
+ * 
+ * @param {array} Products array of products { pid, name, GBP_price, UnitOfMeasure : { single, plural }}
+ * @param {object} Items key-value pair object of productId : Number in basket
+ * @param {function} UpdateBasketValue (productId, newValue)
+ * @param {function} ToCheckout Callback to change view to Checkout
+ */
 const BasketView = ({Products, Items, UpdateBasketValue, ToCheckout}) => {
 	return(
-		<BasketContainer>
-			<h1>Basket</h1>
+		<div>
+			<StyledHeader>Basket</StyledHeader>
 			<ProductContainer>
 			{
 				Products.map(Product=>
@@ -34,9 +41,9 @@ const BasketView = ({Products, Items, UpdateBasketValue, ToCheckout}) => {
 			}
 			</ProductContainer>
 			<ButtonContainer>
-				<StyledButton onClick={ToCheckout}>To Checkout</StyledButton>
+				<StyledButton onClick={ToCheckout}>To Checkout <FontAwesomeIcon icon={faArrowRight}/></StyledButton>
 			</ButtonContainer>
-		</BasketContainer>
+		</div>
 	)
 }
 export default BasketView;

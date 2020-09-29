@@ -4,7 +4,11 @@ import { MainReducer, InitialState } from './reducer';
 import { ToggleCheckout, UpdateBasketValue } from './actions';
 import { FlippingCard, Basket, Checkout } from './components';
 
-const Main = ({Products}) => {
+/**
+ * Flippable interface to contain and move between Basket and Checkout displays.
+ * @param {object} Products [{ pid, name, GBP_price, UnitOfMeasure : { single, plural } }]
+ */
+const Main = ({Products, InitPayment}) => {
 	const [ State, Dispatch ] = useReducer(MainReducer, InitialState );
 	const { BasketItems, ShowCheckout } = State;
 
@@ -19,7 +23,7 @@ const Main = ({Products}) => {
 	return(
 		<FlippingCard IsFlipped={ShowCheckout}>
 			<Basket Products={Products} Items={BasketItems} UpdateBasketValue={UpdateBasketValueCallback} ToCheckout={()=>ToggleCheckoutCallback(!ShowCheckout)} />
-			<Checkout Items={BasketItems} Products={Products} ToBasket={()=>ToggleCheckoutCallback(!ShowCheckout)}/>
+			<Checkout Items={BasketItems} Products={Products} ToBasket={()=>ToggleCheckoutCallback(!ShowCheckout)} InitPayment={InitPayment}/>
 		</FlippingCard>
 	);
 }
