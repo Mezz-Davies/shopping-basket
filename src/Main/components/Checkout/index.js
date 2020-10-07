@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import {ButtonContainer, StyledButton, StyledHeader} from '../StyledComponents';
+import getExchangeRates from '../../../services/GetExchangeRates';
 
 const TotalRow = Styled.div`
 	font-size: 2em;
@@ -46,14 +47,7 @@ const Checkout = ({Products, Items, ToBasket, InitPayment}) => {
 
 	useEffect(()=>{
 		SetIsLoading(true);
-		fetch('https://api.exchangeratesapi.io/latest?base=GBP').then(
-			Response => {
-				if( !Response.ok ){
-					throw new Error('Fetch Error');
-				}
-				return Response.json();
-			}
-		).then(
+		getExchangeRates().then(
 			ExchangeRates => {
 				const { rates } = ExchangeRates;
 				SetCurrencyOptions(rates);

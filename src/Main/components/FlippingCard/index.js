@@ -15,7 +15,7 @@ const CardFace = Styled.div`
 	height:100%;
 	width:100%;
 	position: absolute;
-	transform: rotateY(180deg);
+	transform: rotateY(180deg) rotateZ(180deg);
 	transition: transform 1s;
 	transform-style: preserve-3d;
 	-webkit-backface-visibility: hidden;
@@ -27,7 +27,7 @@ const CardFace = Styled.div`
 	border-radius 16px;
 
 	&.show {
-		transform: rotateY(0deg);
+		transform: rotateY(0deg) rotateZ(0deg);
 	}
 	&.front {
 		background-image: linear-gradient(to bottom right, #4E89AE, #43658B);
