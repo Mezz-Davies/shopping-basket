@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import {ButtonContainer, StyledButton, StyledHeader} from '../StyledComponents';
-import getExchangeRates from '../../../services/GetExchangeRates';
+import {getExchangeRates} from '../../../services/GetExchangeRates';
 
 const TotalRow = Styled.div`
 	font-size: 2em;
