@@ -43,7 +43,8 @@ const Checkout = ({Products, Items, ToBasket, InitPayment}) => {
 	const [ SelectedCurrency, SetSelectedCurrency ] = useState('GBP');
 
 	const [ IsLoading, SetIsLoading ] = useState(false);
-	const [ CurrencyOptions, SetCurrencyOptions ] = useState([]);
+	const [ HasError, SetHasError ] = useState(false);
+	const [ CurrencyOptions, SetCurrencyOptions ] = useState({GBP : 1});
 
 	useEffect(()=>{
 		SetIsLoading(true);
@@ -55,6 +56,7 @@ const Checkout = ({Products, Items, ToBasket, InitPayment}) => {
 		).catch(
 			Err => {
 				console.error(Err);
+				SetHasError(true);
 			}
 		).finally(
 			SetIsLoading(false)
@@ -121,6 +123,9 @@ const Checkout = ({Products, Items, ToBasket, InitPayment}) => {
 				<CurrencySelectionRow>
 					{ IsLoading ?
 						<></>
+						:
+						HasError ?
+						<>Error in currency selection. Function currently unavailable.</>
 						:
 						<>
 							Select which currency you'd like to use : <select onChange={(e)=>SetSelectedCurrency(e.currentTarget.value)} value={SelectedCurrency}>

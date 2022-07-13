@@ -14,7 +14,7 @@ button which will then display the total price for the basket with the option to
 currencies. For example, if the basket contained Milk and the currency selected was USD with an exchange
 rate of 1.5, the total would be $1.95 USD.
 
-The list of currencies should be consumed from https://api.exchangeratesapi.io/latest?base=GBP. The
+The list of currencies should be consumed from ~~https://api.exchangeratesapi.io/latest?base=GBP~~ https://apilayer.com/marketplace/exchangerates_data-api. The
 exchange rates may change at any time.
 
 No UI design constraints are enforced – you should feel free to design the UI in the way you believe is most
@@ -23,6 +23,12 @@ future extensibility. Code should be well structured, suitably commented, have e
 
 # About this project
 This project is coded in React. To run this project, you must first run `npm install` to install the node dependencies. The complete project is available [here](https://github.com/MezzOMG/shopping-basket).
+
+The currency api used is available through [api-info](https://apilayer.com/marketplace/exchangerates_data-api#details-tab). An api-key is required, which can be obtained for free. The api key is set in the `.env` file in the base directory.
+
+```
+REACT_APP_CURRENCY_API_ACCESS_KEY=%YOUR_KEY_HERE%
+```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
